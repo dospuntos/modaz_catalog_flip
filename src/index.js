@@ -1,17 +1,114 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import "./index.scss";
-import DemoBook from "./App";
-import reportWebVitals from "./reportWebVitals";
+import styled from "styled-components";
+import { StylesProvider } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Typography from "@material-ui/core/Typography";
+import Toolbar from "@material-ui/core/Toolbar";
+import {
+  Root,
+  getHeader,
+  getDrawerSidebar,
+  getSidebarTrigger,
+  getSidebarContent,
+  getCollapseBtn,
+  getContent,
+  getFooter,
+} from "@mui-treasury/layout";
+import {
+  getDefaultScheme,
+  getStandardScheme,
+  getFixedScheme,
+  getContentBasedScheme,
+  getCozyScheme,
+  getMuiTreasuryScheme,
+} from "@mui-treasury/layout/presets";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <DemoBook />
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+import NavContentEx from "./components/NavContentEx";
+import NavHeaderEx from "./components/NavHeaderEx";
+import HeaderEx from "./components/HeaderEx";
+import ContentForm from "./components/ContentForm";
+import ContentEx from "./components/ContentEx";
+import FooterEx from "./components/FooterEx";
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-/* reportWebVitals(console.log); */
+/* import "./styles.css"; */
+
+const Header = getHeader(styled);
+const DrawerSidebar = getDrawerSidebar(styled);
+const SidebarTrigger = getSidebarTrigger(styled);
+const SidebarContent = getSidebarContent(styled);
+const CollapseBtn = getCollapseBtn(styled);
+const Content = getContent(styled);
+const Footer = getFooter(styled);
+
+const presets = {
+  createDefaultLayout: getDefaultScheme(),
+  createStandardLayout: getStandardScheme(),
+  createFixedLayout: getFixedScheme(),
+  createContentBasedLayout: getContentBasedScheme(),
+  createCozyLayout: getCozyScheme(),
+  createMuiTreasuryLayout: getMuiTreasuryScheme(),
+};
+
+function App() {
+  const [loading, setLoading] = useState(false);
+  const [preset, setPreset] = useState("createStandardLayout");
+  const [data, setData] = useState({
+    header: true,
+    nav: true,
+    content: true,
+    footer: true,
+  });
+  return loading ? (
+    <div
+      style={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Typography variant={"h2"}>Changing Preset...</Typography>
+    </div>
+  ) : (
+    <StylesProvider injectFirst>
+      <CssBaseline />
+      <Root scheme={presets[preset]}>
+        {({ state: { sidebar } }) => (
+          <>
+            <Header>
+              <Toolbar>
+                <SidebarTrigger sidebarId="primarySidebar" />
+                {data.header && <HeaderEx />}
+              </Toolbar>
+            </Header>
+            <DrawerSidebar sidebarId="primarySidebar">
+              <SidebarContent>
+                <NavHeaderEx collapsed={sidebar.primarySidebar.collapsed} />
+                {data.nav && <NavContentEx />}
+              </SidebarContent>
+              <CollapseBtn />
+            </DrawerSidebar>
+            <Content>
+              <ContentForm
+                preset={preset}
+                onChangePreset={(val) => {
+                  setLoading(true);
+                  setPreset(val);
+                  setTimeout(() => setLoading(false), 500);
+                }}
+                data={data}
+                onChangeData={setData}
+              />
+              {data.content && <ContentEx />}
+            </Content>
+            <Footer>{data.footer && <FooterEx />}</Footer>
+          </>
+        )}
+      </Root>
+    </StylesProvider>
+  );
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
