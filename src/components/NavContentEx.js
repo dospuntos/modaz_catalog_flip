@@ -8,37 +8,17 @@ import Divider from "@material-ui/core/Divider";
 
 const list = [
   {
-    primaryText: "My Files",
-    icon: "folder"
+    primaryText: "Catálogo",
+    icon: "menu_book",
   },
   {
-    primaryText: "Shared with me",
-    icon: "people"
+    primaryText: "Rejilla",
+    icon: "view_module",
   },
   {
-    primaryText: "Starred",
-    icon: "star"
+    primaryText: "Lista",
+    icon: "list",
   },
-  {
-    primaryText: "Recent",
-    icon: "schedule"
-  },
-  {
-    primaryText: "Offline",
-    icon: "offline_pin"
-  },
-  {
-    primaryText: "Uploads",
-    icon: "publish"
-  },
-  {
-    primaryText: "Backups",
-    icon: "backup"
-  },
-  {
-    primaryText: "Trash",
-    icon: "delete"
-  }
 ];
 const NavContentEx = () => (
   <List>
@@ -59,7 +39,25 @@ const NavContentEx = () => (
         <Icon>settings</Icon>
       </ListItemIcon>
       <ListItemText
-        primary={"Settings & account"}
+        primary={"Mi Cuenta"}
+        primaryTypographyProps={{ noWrap: true }}
+      />
+    </ListItem>
+    <ListItem button>
+      <ListItemIcon>
+        <Icon>email</Icon>
+      </ListItemIcon>
+      <ListItemText
+        primary={"Contacto"}
+        primaryTypographyProps={{ noWrap: true }}
+      />
+    </ListItem>
+    <ListItem button>
+      <ListItemIcon>
+        <Icon>help_outline</Icon>
+      </ListItemIcon>
+      <ListItemText
+        primary={"Ayuda"}
         primaryTypographyProps={{ noWrap: true }}
       />
     </ListItem>

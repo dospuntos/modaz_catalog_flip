@@ -11,15 +11,15 @@ const NavHeaderEx = ({ collapsed }) => (
         style={{
           width: collapsed ? 48 : 60,
           height: collapsed ? 48 : 60,
-          transition: "0.3s"
+          transition: "0.3s",
         }}
       />
       <div style={{ paddingBottom: 16 }} />
       <Typography variant={"h6"} noWrap>
-        Sandra Adams
+        Joanne Maidana
       </Typography>
       <Typography color={"textSecondary"} noWrap gutterBottom>
-        sandra_88@gmail.com
+        joanne.tatiana@gmail.com
       </Typography>
     </div>
     <Divider />
@@ -27,10 +27,10 @@ const NavHeaderEx = ({ collapsed }) => (
 );
 
 NavHeaderEx.propTypes = {
-  collapsed: PropTypes.bool
+  collapsed: PropTypes.bool,
 };
 NavHeaderEx.defaultProps = {
-  collapsed: false
+  collapsed: false,
 };
 
 export default NavHeaderEx;
