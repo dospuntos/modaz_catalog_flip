@@ -1,5 +1,7 @@
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import DemoBook from "../DemoBook";
+import '../index.scss';
 
 const styles = ({ breakpoints }) => ({
   root: {
@@ -19,9 +21,10 @@ const CatalogFlip = ({ classes, products }) => (
   <div className={classes.root}>
     <Typography variant={"title"}>FLIPBOOK</Typography>
     <Typography variant={"body1"}>Lorem ipsum dolor sit amet.</Typography>
-    {products.map((item) => {
+    {/* {products.map((item) => {
       return <p>{item.name}</p>;
-    })}
+    })} */}
+    <DemoBook />
   </div>
 );
 

@@ -57,22 +57,18 @@ const presets = {
 function App() {
   const [loading, setLoading] = useState(true);
   const [preset, setPreset] = useState("createStandardLayout");
-  const [data, setData] = useState({
-    header: true,
-    nav: true,
-    content: true,
-    footer: true,
-  });
   const [layout, setLayout] = useState("flip");
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     getProducts().then((products) => {
-      setProducts(products);
-      console.log(products);
-      setLoading(false);
+      console.log("Products: ", products);
+      if (typeof products !== "undefined") {
+        setProducts(products);
+        setLoading(false);
+      }
     });
-  });
+  }, []);
 
   return loading ? (
     <div
@@ -116,11 +112,9 @@ function App() {
                 onChangeData={setData}
               /> */}
               {/* {data.content && <ContentEx />} */}
-              {layout === "flip" && (
-                <CatalogFlip products={products.data.products} />
-              )}
-              {layout === "grid" && <CatalogGrid />}
-              {layout === "list" && <CatalogList />}
+              {layout === "flip" && (<CatalogFlip products={products.data.products} />)}
+              {layout === "grid" && (<CatalogGrid products={products.data.products} />)}
+              {layout === "list" && (<CatalogList products={products.data.products} />)}
             </Content>
             <Footer>
               <FooterEx />

@@ -1,6 +1,5 @@
-import {useState} from "react";
-import { withStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
+import { useState, useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Table from "@material-ui/core/Table";
@@ -10,41 +9,48 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
+import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
-
-const styles = ({ breakpoints }) => ({
-  root: {
-    padding: 16,
-    [breakpoints.up("sm")]: {
-      padding: 24,
-      maxWidth: 500,
-      margin: "auto",
-    },
-    [breakpoints.up("md")]: {
-      maxWidth: "100%",
-    },
-  },
-});
+import { getUsers } from "api/usersApi";
+import { Link } from "react-router-dom";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Gravatar from "modules/Gravatar";
 
 const columns = [
   { id: "icon", label: "", minWidth: 50 },
   { id: "name", label: "Nombre", minWidth: 180 },
   {
     id: "username",
-    label: "Talla/Color",
+    label: "Usuario",
     minWidth: 170,
   },
   {
-    id: "price",
-    label: "Precio"
+    id: "email",
+    label: "Email",
+    minWidth: 200,
   },
 ];
 
-function CatalogList({ classes, products }) {
+const useStyles = makeStyles({
+  root: {
+    width: "100%",
+  },
+});
 
+export default function Users() {
+  const [searchText, setSearchText] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
-  const [searchText, setSearchText] = useState("");
+  const classes = useStyles();
+
+  useEffect(() => {
+    // Get users
+    /* getUsers().then((users) => {
+      setUsers(users);
+      setIsLoading(false);
+    }); */
+  }, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -56,15 +62,17 @@ function CatalogList({ classes, products }) {
   };
 
   /* Filter by search */
-  let filteredProducts = products;
-  filteredProducts = filteredProducts.filter((eachItem) => {
+  let filteredUsers = users;
+  filteredUsers = filteredUsers.filter((eachItem) => {
     return (
-      eachItem["name"].toLowerCase().includes(searchText.toLowerCase())
+      eachItem["name"].toLowerCase().includes(searchText.toLowerCase()) ||
+      eachItem["username"].toLowerCase().includes(searchText.toLowerCase()) ||
+      eachItem["email"].toLowerCase().includes(searchText.toLowerCase())
     );
   });
 
+  if (isLoading) return <CircularProgress />;
   return (
-  <div className={classes.root}>
     <>
       <Grid
         container
@@ -73,15 +81,16 @@ function CatalogList({ classes, products }) {
         alignItems="center"
       >
         <Grid item xs={6}>
-          <Typography variant="h3">Productos</Typography>
+          <Typography variant="h3">Usuarios</Typography>
           <Typography variant="subtitle2" gutterBottom>
-            Mostrando {filteredProducts.length} de {products.length} items.
+            Mostrando {filteredUsers.length} de {users.length} usuarios en el
+            sistema.
           </Typography>
         </Grid>
 
         <Grid item xs={6} style={{ textAlign: "right" }}>
           <TextField
-            label="Buscar..."
+            label="Buscar usuario"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
             variant="outlined"
@@ -105,22 +114,25 @@ function CatalogList({ classes, products }) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredProducts
+              {filteredUsers
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => {
                   return (
                     <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                       <TableCell>
-                        {/* <Gravatar email={row.email} /> */}
+                        <Gravatar email={row.email} />
                       </TableCell>
                       <TableCell>
-                          {row.name}
+                        <Link
+                          to={"/users/" + row.id}
+                          style={{ textTransform: "capitalize" }}
+                        >
+                          {row.name} ({row.id})
+                        </Link>
                       </TableCell>
-                      <TableCell>{row.variants.map(variant => {
-                        return <p>{variant.color}/{variant.size}</p>;
-                      })}</TableCell>
+                      <TableCell>{row.username}</TableCell>
                       <TableCell>
-                        Bs. {row.price}
+                        <a href={"mailto:" + row.email}>{row.email}</a>
                       </TableCell>
                     </TableRow>
                   );
@@ -131,7 +143,7 @@ function CatalogList({ classes, products }) {
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={filteredProducts.length}
+          count={filteredUsers.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}
@@ -139,10 +151,5 @@ function CatalogList({ classes, products }) {
         />
       </Paper>
     </>
-  </div>)
-};
-
-CatalogList.propTypes = {};
-CatalogList.defaultProps = {};
-
-export default withStyles(styles)(CatalogList);
+  );
+}
