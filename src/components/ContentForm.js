@@ -17,15 +17,15 @@ const styles = ({ breakpoints }) => ({
     [breakpoints.up("sm")]: {
       padding: 24,
       maxWidth: 500,
-      margin: "auto"
+      margin: "auto",
     },
     [breakpoints.up("md")]: {
-      maxWidth: 700
-    }
+      maxWidth: 700,
+    },
   },
   paper: {
-    padding: 16
-  }
+    padding: 16,
+  },
 });
 
 const ContentForm = ({
@@ -33,12 +33,12 @@ const ContentForm = ({
   preset,
   onChangePreset,
   data,
-  onChangeData
+  onChangeData,
 }) => {
-  const handleChange = key => e =>
+  const handleChange = (key) => (e) =>
     onChangeData({
       ...data,
-      [key]: e.target.checked
+      [key]: e.target.checked,
     });
   return (
     <div className={classes.root}>
@@ -51,7 +51,7 @@ const ContentForm = ({
                 aria-label="Preset"
                 name="preset"
                 value={preset}
-                onChange={e => onChangePreset(e.target.value)}
+                onChange={(e) => onChangePreset(e.target.value)}
               >
                 <FormControlLabel
                   value="createDefaultLayout"
@@ -86,53 +86,7 @@ const ContentForm = ({
               </RadioGroup>
             </FormControl>
           </Grid>
-          <Grid item xs={6}>
-            <FormControl component="fieldset" className={classes.formControl}>
-              <FormLabel component="legend">Enabled mockup</FormLabel>
-              <FormGroup>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={data.header}
-                      onChange={handleChange("header")}
-                      value="header"
-                    />
-                  }
-                  label="Header"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={data.nav}
-                      onChange={handleChange("nav")}
-                      value="nav"
-                    />
-                  }
-                  label="Nav"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={data.content}
-                      onChange={handleChange("content")}
-                      value="content"
-                    />
-                  }
-                  label="Content"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={data.footer}
-                      onChange={handleChange("footer")}
-                      value="footer"
-                    />
-                  }
-                  label="Footer"
-                />
-              </FormGroup>
-            </FormControl>
-          </Grid>
+          <Grid item xs={6}></Grid>
         </Grid>
       </Paper>
     </div>
@@ -144,7 +98,7 @@ ContentForm.propTypes = {
   preset: PropTypes.string.isRequired,
   onChangePreset: PropTypes.func.isRequired,
   data: PropTypes.shape({}).isRequired,
-  onChangeData: PropTypes.func.isRequired
+  onChangeData: PropTypes.func.isRequired,
 };
 ContentForm.defaultProps = {};
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 import { StylesProvider } from "@material-ui/core/styles";
@@ -30,6 +30,10 @@ import HeaderEx from "./components/HeaderEx";
 import ContentForm from "./components/ContentForm";
 import ContentEx from "./components/ContentEx";
 import FooterEx from "./components/FooterEx";
+import CatalogFlip from "./components/CatalogFlip";
+import CatalogGrid from "./components/CatalogGrid";
+import CatalogList from "./components/CatalogList";
+import { getProducts } from "./api/productApi";
 
 /* import "./styles.css"; */
 
@@ -51,7 +55,7 @@ const presets = {
 };
 
 function App() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [preset, setPreset] = useState("createStandardLayout");
   const [data, setData] = useState({
     header: true,
@@ -59,6 +63,17 @@ function App() {
     content: true,
     footer: true,
   });
+  const [layout, setLayout] = useState("flip");
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    getProducts().then((products) => {
+      setProducts(products);
+      console.log(products);
+      setLoading(false);
+    });
+  });
+
   return loading ? (
     <div
       style={{
@@ -68,7 +83,7 @@ function App() {
         alignItems: "center",
       }}
     >
-      <Typography variant={"h2"}>Changing Preset...</Typography>
+      <Typography variant={"h2"}>Cargando...</Typography>
     </div>
   ) : (
     <StylesProvider injectFirst>
@@ -79,18 +94,18 @@ function App() {
             <Header>
               <Toolbar>
                 <SidebarTrigger sidebarId="primarySidebar" />
-                {data.header && <HeaderEx />}
+                <HeaderEx />
               </Toolbar>
             </Header>
             <DrawerSidebar sidebarId="primarySidebar">
               <SidebarContent>
                 <NavHeaderEx collapsed={sidebar.primarySidebar.collapsed} />
-                {data.nav && <NavContentEx />}
+                <NavContentEx setLayout={setLayout} layout={layout} />
               </SidebarContent>
               <CollapseBtn />
             </DrawerSidebar>
             <Content>
-              <ContentForm
+              {/* <ContentForm
                 preset={preset}
                 onChangePreset={(val) => {
                   setLoading(true);
@@ -99,10 +114,17 @@ function App() {
                 }}
                 data={data}
                 onChangeData={setData}
-              />
-              {data.content && <ContentEx />}
+              /> */}
+              {/* {data.content && <ContentEx />} */}
+              {layout === "flip" && (
+                <CatalogFlip products={products.data.products} />
+              )}
+              {layout === "grid" && <CatalogGrid />}
+              {layout === "list" && <CatalogList />}
             </Content>
-            <Footer>{data.footer && <FooterEx />}</Footer>
+            <Footer>
+              <FooterEx />
+            </Footer>
           </>
         )}
       </Root>
