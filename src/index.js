@@ -27,15 +27,13 @@ import {
 import NavContentEx from "./components/NavContentEx";
 import NavHeaderEx from "./components/NavHeaderEx";
 import HeaderEx from "./components/HeaderEx";
-import ContentForm from "./components/ContentForm";
-import ContentEx from "./components/ContentEx";
 import FooterEx from "./components/FooterEx";
 import CatalogFlip from "./components/CatalogFlip";
 import CatalogGrid from "./components/CatalogGrid";
 import CatalogList from "./components/CatalogList";
 import { getProducts } from "./api/productApi";
 
-/* import "./styles.css"; */
+import "index.scss";
 
 const Header = getHeader(styled);
 const DrawerSidebar = getDrawerSidebar(styled);

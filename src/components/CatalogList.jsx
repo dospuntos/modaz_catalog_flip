@@ -11,6 +11,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import TextField from "@material-ui/core/TextField";
+import ProductImages from "modules/ProductImages";
 
 const styles = ({ breakpoints }) => ({
   root: {
@@ -112,12 +113,13 @@ function CatalogList({ classes, products }) {
                     <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                       <TableCell>
                         {/* <Gravatar email={row.email} /> */}
+                      <ProductImages img={row.images} maxWidth={100} />
                       </TableCell>
                       <TableCell>
                           {row.name}
                       </TableCell>
                       <TableCell>{row.variants.map(variant => {
-                        return <p>{variant.color}/{variant.size}</p>;
+                        return <p key={variant.id}>{variant.color}/{variant.size}</p>;
                       })}</TableCell>
                       <TableCell>
                         Bs. {row.price}
