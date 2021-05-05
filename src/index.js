@@ -99,20 +99,15 @@ function App() {
               <CollapseBtn />
             </DrawerSidebar>
             <Content>
-              {/* <ContentForm
-                preset={preset}
-                onChangePreset={(val) => {
-                  setLoading(true);
-                  setPreset(val);
-                  setTimeout(() => setLoading(false), 500);
-                }}
-                data={data}
-                onChangeData={setData}
-              /> */}
-              {/* {data.content && <ContentEx />} */}
-              {layout === "flip" && (<CatalogFlip products={products.data.products} />)}
-              {layout === "grid" && (<CatalogGrid products={products.data.products} />)}
-              {layout === "list" && (<CatalogList products={products.data.products} />)}
+              {layout === "flip" && (
+                <CatalogFlip products={products.data.products} />
+              )}
+              {layout === "grid" && (
+                <CatalogGrid products={products.data.products} />
+              )}
+              {layout === "list" && (
+                <CatalogList products={products.data.products} />
+              )}
             </Content>
             <Footer>
               <FooterEx />
