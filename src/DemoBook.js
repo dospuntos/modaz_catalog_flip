@@ -1,5 +1,6 @@
 import React from "react";
 import HTMLFlipBook from "react-pageflip";
+import "book.scss";
 
 const PageCover = React.forwardRef((props, ref) => {
   return (
@@ -16,7 +17,9 @@ const Page = React.forwardRef((props, ref) => {
     <div className="page" ref={ref}>
       <div className="page-content">
         <h2 className="page-header">Page header - {props.number}</h2>
-        <div className="page-image"></div>
+        <div className="page-image">
+          <img src="https://via.placeholder.com/400" alt="" />
+        </div>
         <div className="page-text">{props.children}</div>
         <div className="page-footer">{props.number + 1}</div>
       </div>
@@ -60,12 +63,12 @@ export default class DemoBook extends React.Component {
         <HTMLFlipBook
           width={550}
           height={733}
-          size="fixed"
+          size="stretch"
           minWidth={315}
           maxWidth={1000}
           minHeight={400}
           maxHeight={1533}
-          maxShadowOpacity={1}
+          maxShadowOpacity={0.5}
           showCover={true}
           mobileScrollSupport={true}
           onFlip={this.onPage}
