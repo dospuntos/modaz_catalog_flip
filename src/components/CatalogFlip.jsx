@@ -12,7 +12,7 @@ const styles = ({ breakpoints }) => ({
       margin: "auto",
     },
     [breakpoints.up("md")]: {
-      maxWidth: 700,
+      maxWidth: "100%",
     },
   },
 });
@@ -20,10 +20,6 @@ const styles = ({ breakpoints }) => ({
 const CatalogFlip = ({ classes, products }) => (
   <div className={classes.root}>
     <Typography variant={"title"}>FLIPBOOK</Typography>
-    <Typography variant={"body1"}>Lorem ipsum dolor sit amet.</Typography>
-    {/* {products.map((item) => {
-      return <p>{item.name}</p>;
-    })} */}
     <DemoBook2 products={products}/>
   </div>
 );

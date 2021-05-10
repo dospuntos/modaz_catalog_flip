@@ -28,15 +28,15 @@ const PageCover = React.forwardRef((props, ref) => {
   function DemoBook2({products}) {
 
     return (
-        <div>
+        <div style={{overflow:"hidden"}}>
         <HTMLFlipBook
-          width={550}
-          height={733}
+          width={900}
+          height={900}
           size="stretch"
           minWidth={315}
           maxWidth={1000}
           minHeight={400}
-          maxHeight={1533}
+          maxHeight={1000}
           maxShadowOpacity={0.5}
           showCover={true}
           mobileScrollSupport={true}

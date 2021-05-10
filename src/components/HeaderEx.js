@@ -61,7 +61,7 @@ const styles = ({ spacing, transitions, breakpoints, palette, shape }) => ({
   },
 });
 
-const HeaderEx = ({ classes, screen }) => (
+const HeaderEx = ({ classes, screen, searchText, setSearchText }) => (
   <>
     <Typography noWrap color={"textSecondary"} className={classes.header}>
       Zumba Wear - Moda Z
@@ -77,6 +77,8 @@ const HeaderEx = ({ classes, screen }) => (
           root: classes.inputRoot,
           input: classes.inputInput,
         }}
+        value={searchText}
+        onChange={(e) => setSearchText(e.target.value)}
       />
     </div>
     {screen === "xs" && (

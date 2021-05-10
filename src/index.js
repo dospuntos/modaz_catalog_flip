@@ -57,6 +57,7 @@ function App() {
   const [preset, setPreset] = useState("createStandardLayout");
   const [layout, setLayout] = useState("flip");
   const [products, setProducts] = useState([]);
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     getProducts().then((products) => {
@@ -67,6 +68,18 @@ function App() {
       }
     });
   }, []);
+
+  let filteredProducts = products;
+
+  if (typeof products.data !== "undefined") {
+    // Filter products by search and send filtered products to display components.
+    filteredProducts = products.data.products;
+
+    /* Filter by search */
+    filteredProducts = filteredProducts.filter((eachItem) =>
+      eachItem["name"].toLowerCase().includes(searchText.toLowerCase())
+    );
+  }
 
   return loading ? (
     <div
@@ -88,7 +101,10 @@ function App() {
             <Header>
               <Toolbar>
                 <SidebarTrigger sidebarId="primarySidebar" />
-                <HeaderEx />
+                <HeaderEx
+                  searchText={searchText}
+                  setSearchText={setSearchText}
+                />
               </Toolbar>
             </Header>
             <DrawerSidebar sidebarId="primarySidebar">
@@ -99,15 +115,9 @@ function App() {
               <CollapseBtn />
             </DrawerSidebar>
             <Content>
-              {layout === "flip" && (
-                <CatalogFlip products={products.data.products} />
-              )}
-              {layout === "grid" && (
-                <CatalogGrid products={products.data.products} />
-              )}
-              {layout === "list" && (
-                <CatalogList products={products.data.products} />
-              )}
+              {layout === "flip" && <CatalogFlip products={filteredProducts} />}
+              {layout === "grid" && <CatalogGrid products={filteredProducts} />}
+              {layout === "list" && <CatalogList products={filteredProducts} />}
             </Content>
             <Footer>
               <FooterEx />
