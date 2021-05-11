@@ -65,6 +65,8 @@ function CatalogList({ classes, products }) {
     );
   });
 
+  const [variant, setVariant] = useState(0);
+
   return (
   <div className={classes.root}>
     <>
@@ -120,7 +122,7 @@ function CatalogList({ classes, products }) {
                           {row.name}
                       </TableCell>
                       <TableCell>
-                        <VariantsDropdown variants={row.variants} />
+                      <VariantsDropdown variants={row.variants} value={variant} setVariant={setVariant}/>
                       </TableCell>
                       <TableCell>
                         Bs. {row.price}

@@ -18,13 +18,16 @@ const styles = ({ breakpoints }) => ({
   },
 });
 
-const CatalogGrid = ({ classes,products }) => (
+const CatalogGrid = ({ classes, products }) => (
   <Paper className={classes.root}>
     <Typography variant={"h3"}>Productos</Typography>
-      <Grid container spacing={3}>
-        {/* Trim products for testing */}
-        {products.slice(0,90).map((item, n) =>  <Grid item xs={12} md={3}><ProductCard key={n} item={item}/></Grid>)}
-      </Grid>
+    <Grid container spacing={3}>
+      {products.slice(0, 90).map((item, n) => (
+        <Grid key={n} item xs={12} md={3}>
+          <ProductCard item={item} />
+        </Grid>
+      ))}
+    </Grid>
   </Paper>
 );
 
