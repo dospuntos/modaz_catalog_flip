@@ -32,6 +32,8 @@ import CatalogFlip from "./components/CatalogFlip";
 import CatalogGrid from "./components/CatalogGrid";
 import CatalogList from "./components/CatalogList";
 import { getProducts } from "./api/productApi";
+import { CartProvider } from "modules/cartContext";
+import CartButton from "components/CartButton";
 
 import "index.scss";
 
@@ -102,7 +104,7 @@ function App() {
       <CssBaseline />
       <Root scheme={presets[preset]}>
         {({ state: { sidebar } }) => (
-          <>
+          <CartProvider>
             <Header>
               <Toolbar>
                 <SidebarTrigger sidebarId="primarySidebar" />
@@ -124,10 +126,11 @@ function App() {
               {layout === "grid" && <CatalogGrid products={filteredProducts} />}
               {layout === "list" && <CatalogList products={filteredProducts} />}
             </Content>
+            <CartButton />
             <Footer>
               <FooterEx />
             </Footer>
-          </>
+          </CartProvider>
         )}
       </Root>
     </StylesProvider>
