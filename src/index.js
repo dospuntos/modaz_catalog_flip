@@ -75,6 +75,11 @@ function App() {
     // Filter products by search and send filtered products to display components.
     filteredProducts = products.data.products;
 
+    /* Filter out items out of stock */
+    filteredProducts = filteredProducts.filter(
+      (eachItem) => eachItem["totalstock"] > 0
+    );
+
     /* Filter by search */
     filteredProducts = filteredProducts.filter((eachItem) =>
       eachItem["name"].toLowerCase().includes(searchText.toLowerCase())

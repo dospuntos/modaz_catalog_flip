@@ -12,6 +12,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import TextField from "@material-ui/core/TextField";
 import ProductImages from "modules/ProductImages";
+import VariantsDropdown from "modules/VariantsDropdown";
 
 const styles = ({ breakpoints }) => ({
   root: {
@@ -118,9 +119,9 @@ function CatalogList({ classes, products }) {
                       <TableCell>
                           {row.name}
                       </TableCell>
-                      <TableCell>{row.variants.map(variant => {
-                        return <p key={variant.id}>{variant.color}/{variant.size}</p>;
-                      })}</TableCell>
+                      <TableCell>
+                        <VariantsDropdown variants={row.variants} />
+                      </TableCell>
                       <TableCell>
                         Bs. {row.price}
                       </TableCell>

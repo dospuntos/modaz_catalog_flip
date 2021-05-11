@@ -37,9 +37,8 @@
     .image-container {
       overflow: hidden;
       width: 200px;
-      height: 0;
-      padding-top: 50%;
-      z-index: 1000;
+      height: 200px;
+      float: left;
     }
 
     .page-text {

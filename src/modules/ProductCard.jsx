@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import VariantsDropdown from './VariantsDropdown';
 
 const useStyles = makeStyles({
   /* root: {
@@ -38,9 +39,7 @@ export default function ProductCard({item}) {
             {item.name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {item.variants.map(variant => {
-              return (<span style={{color: variant.stock ? "green" : "red"}}>{variant.color} - {variant.size}<br /></span>)
-            })}
+          <VariantsDropdown variants={item.variants} />
           </Typography>
         </CardContent>
       </CardActionArea>
