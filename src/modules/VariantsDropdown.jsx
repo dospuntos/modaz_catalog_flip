@@ -3,7 +3,7 @@ export default function VariantsDropdown({variants}) {
         <select>
             <option>Color y talla</option>
             {variants.map(variant => {
-                return <option disabled={variant.stock ? "false" : "true"} key={variant.id}>{variant.color} - {variant.size}</option>;
+                return <option disabled={variant.stock === 0} key={variant.id}>{variant.color} - {variant.size} {!variant.stock && "(Agotado)"}</option>;
         })}
         </select>
     )
