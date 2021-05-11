@@ -5,6 +5,11 @@ img {
 main {
   background: #e3d0b5 url("img/bg.jpg") center center / contain no-repat;
 }
+
+.MuiTypography-h5 {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 /*
 .demo-block {
   border-top: solid 1px #dcdcdc;
